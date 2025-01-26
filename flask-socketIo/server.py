@@ -12,7 +12,7 @@ soklcketio = SocketIO(app)
 
 # inicia o server
 # if __name__ == "__main__":
-#	soklcketio.run(app)
+# soklcketio.run(app)
 
 # -----------------------------------------------------
 
@@ -31,15 +31,6 @@ soklcketio = SocketIO(app)
 # -----------------------------------------------------
 
 
-
-
-
-
-
-
-
-
-
 # inicia o server
 if __name__ == "__main__":
-	soklcketio.run(app)
+    soklcketio.run(app)

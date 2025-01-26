@@ -1,6 +1,8 @@
 import pytest
 from flask_socketio import SocketIO
-from gpt import app, socketio  # Substitua "app" pelo nome do seu arquivo de aplicação
+# Substitua "app" pelo nome do seu arquivo de aplicação
+from gpt import app, socketio
+
 
 @pytest.fixture
 def socketio_client():
@@ -8,6 +10,7 @@ def socketio_client():
     app.config['TESTING'] = True
     test_client = socketio.test_client(app)
     return test_client
+
 
 def test_socketio_message(socketio_client):
     # Envia uma mensagem ao servidor usando o evento padrão 'message'
@@ -21,6 +24,6 @@ def test_socketio_message(socketio_client):
     # nome do evento
     assert received[0]['name'] == 'message'
     assert received[0]['args'][0] == 'Mensagem recebida!'
-    
-    
+
+
 # pytest pytest_event.py
