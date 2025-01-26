@@ -37,7 +37,7 @@ Certifique-se de ter o Python instalado em sua máquina. Recomenda-se o uso de u
 1. Clone este repositório:  
    ```bash  
    git clone https://github.com/Gabrieel-Marques-Do-Nascimento/Flask_Playground.git  
-   cd exemplos-flask  
+   cd Flask_Playground 
    ```  
 
 2. Crie um ambiente virtual e ative-o:  
@@ -67,8 +67,8 @@ A API estará disponível em [http://localhost:5000](http://localhost:5000).
 ### WebSocket com Flask-SocketIO  
 Acesse a pasta `websocket_exemplo` e execute o servidor:  
 ```bash  
-cd websocket_exemplo  
-python app.py  
+cd flask-socketIo  
+python exemplo.py  
 ```  
 Abra o arquivo `index.html` no navegador para testar a comunicação em tempo real.  
 
