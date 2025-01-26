@@ -173,18 +173,30 @@
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 	<script>
-		var socket = io();
-		/*
-    socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
-    });
-    */
-
-		function startChat() {
-		const nameInput = document.getElementById('name-input');
+	const messageInput = document.getElementById('message-input');
+		const messagesContainer = document.getElementById('messages');
+	const nameInput = document.getElementById('name-input');
 		const nameContainer = document.getElementById('name-container');
 		const chatContainer = document.getElementById('chat-container');
 		const welcomeMessage = document.getElementById('welcome-message');
+		
+	
+		function message(name, msg){
+		return `<p><strong>${name}:</strong> ${msg}</p>`
+		}
+		var socket = io.connect()
+
+		socket.on("message", function(data){
+			const messageDiv = document.createElement('div');
+		messageDiv.classList.add('message', 'sent');
+		
+		messageDiv.innerHTML = message(data.name, data.message);
+		
+		messagesContainer.appendChild(messageDiv);
+		})
+		
+		
+		function startChat() {
 
 		if (nameInput.value.trim() === '') {
 		alert('Por favor, digite seu nome');
@@ -195,46 +207,26 @@
 		chatContainer.style.display = 'flex';
 		welcomeMessage.textContent = `Olá, ${nameInput.value}!`;
 		}
-
-
-		function message(name, message){
-		return `<p><strong> ${name}</strong> ${message}</p>`
-		}
-
-		//socket.on("message", funcution(event){
-
-
-		//})
-
-
-		// Prevent zoom on double-tap for mobile
-		document.addEventListener('touchstart', function addtouchstart(e) {
-		if (e.touches.length > 1) {
-		e.preventDefault();
-		}
-		}, { passive: false });
-
-		document.addEventListener('touchend', function addtouchend(e) {
-		if (e.touches.length > 1) {
-		e.preventDefault();
-		}
-		}, { passive: false });
-
-
-
-		function sendMessage() {
-		const messageInput = document.getElementById('message-input');
-		const messagesContainer = document.getElementById('messages');
+function sendMessage() {
+		
 
 		if (messageInput.value.trim() === '') {
 		return;
 		}
-
+/*
 		const messageDiv = document.createElement('div');
 		messageDiv.classList.add('message', 'sent');
-		messageDiv.textContent = messageInput.value;
-
+		
+		messageDiv.innerHTML = message(nameInput.value, messageInput.value);
+		
 		messagesContainer.appendChild(messageDiv);
+		*/
+		// 
+		socket.emit("message", {
+			name: nameInput.value,
+			message: messageInput.value
+		})
+		
 
 		// Scroll to bottom of messages
 		messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -242,13 +234,6 @@
 		// Clear input
 		messageInput.value = '';
 		}
-
-		// Allow sending message with Enter key
-		document.getElementById('message-input').addEventListener('keypress', function(e) {
-		if (e.key === 'Enter') {
-		sendMessage();
-		}
-		});
 	</script>
 </body>
 </html>

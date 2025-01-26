@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import  CORS
 from flask_socketio import SocketIO
 from .events import socket_bp, register_socket_events
 from .routes import pages
@@ -9,6 +10,7 @@ socketIo = SocketIO()
 
 def creat_app():
 	app = Flask(__name__)
+	CORS(app)
 	app.config["SECRET_KEY"] = "secret"
 	socketIo.init_app(app)
 	app.register_blueprint( pages)
