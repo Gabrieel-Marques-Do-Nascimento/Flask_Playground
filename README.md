@@ -36,7 +36,7 @@ Certifique-se de ter o Python instalado em sua máquina. Recomenda-se o uso de u
 ### Instalação  
 1. Clone este repositório:  
    ```bash  
-   git clone https://github.com/seu_usuario/exemplos-flask  
+   git clone https://github.com/Gabrieel-Marques-Do-Nascimento/Flask_Playground.git  
    cd exemplos-flask  
    ```  
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from flask_socketio import emit, SocketIO
-# 													entrar,	 sair
+# 									entrar,	 sair
 from flask_socketio import join_room, leave_room
 
 # Cria um Blueprint para eventos Socket.IO
