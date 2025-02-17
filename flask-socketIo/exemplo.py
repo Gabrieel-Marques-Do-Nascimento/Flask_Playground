@@ -1,3 +1,6 @@
+# pip install eventlet gevent flask_sockeio flask
+
+
 from flask import Flask
 from flask_socketio import SocketIO
 

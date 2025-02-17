@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Notificações de Salas - Python Socket.IO</title>
+    <style>
+        .notification {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Chat com Notificações (Python + Socket.IO)</h2>
+
+    <input id="roomInput" placeholder="Nome da sala">
+    <button onclick="joinRoom()">Entrar na Sala</button>
+    <button onclick="subscribeToRoom()">Receber Notificações</button>
+
+    <div id="notifications"></div>
+
+    <div id="chat"></div>
+
+    <input id="messageInput" placeholder="Digite sua mensagem">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        function joinRoom() {
+            const room = document.getElementById('roomInput').value;
+            if (room) {
+                socket.emit('join_room', { room: room });
+                document.getElementById('chat').innerHTML += `<p>Entrou na sala: ${room}</p>`;
+            }
+        }
+
+        function subscribeToRoom() {
+            const room = document.getElementById('roomInput').value;
+            if (room) {
+                socket.emit('subscribe_to_notifications', { room: room });
+                document.getElementById('notifications').innerHTML += `<p>Inscrito para notificações da sala: ${room}</p>`;
+            }
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('messageInput').value;
+            const room = document.getElementById('roomInput').value;
+
+            if (message && room) {
+                socket.emit('send_message', { room: room, message: message });
+                document.getElementById('messageInput').value = '';
+            }
+        }
+
+        socket.on('message', (msg) => {
+            document.getElementById('chat').innerHTML += `<p>${msg}</p>`;
+        });
+
+        socket.on('new_message_notification', (data) => {
+            const notificationsDiv = document.getElementById('notifications');
+            notificationsDiv.innerHTML += `<p class="notification">${data.message}</p>`;
+        });
+    </script>
+</body>
+</html>
